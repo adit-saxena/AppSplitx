@@ -39,31 +39,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    const { data: { user: newUser }, error } = await supabase.auth.signUp({
+  
+const signUp = async (email: string, password: string, fullName: string) => {
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
+        // We still pass full_name here so the trigger can use it
         data: {
           full_name: fullName,
         },
       },
     });
     if (error) throw error;
-
-    // Create profile record
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .insert([
-        {
-          id: newUser?.id,
-          full_name: fullName,
-        },
-      ]);
-
-    if (profileError) {
-      console.error('Error creating profile:', profileError);
-    }
   };
 
   const signIn = async (email: string, password: string) => {

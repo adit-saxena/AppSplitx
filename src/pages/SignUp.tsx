@@ -1,9 +1,8 @@
 // src/pages/SignUp.tsx
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, MailCheck } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { OTPVerification } from '../components/OTPVerification';
 
 export function SignUp() {
   const [formData, setFormData] = useState({
@@ -13,9 +12,8 @@ export function SignUp() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showOTP, setShowOTP] = useState(false);
+  const [success, setSuccess] = useState(false); // State to show success message
   const { signUp } = useAuth();
-  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -33,59 +31,46 @@ export function SignUp() {
 
     setLoading(true);
     setError('');
+    setSuccess(false);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-otp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY!,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 409) {
-          setError('An account with this email already exists. Please sign in instead.');
-        } else {
-          setError(data.error || 'Failed to send verification code');
-        }
-        return;
-      }
-
-      setShowOTP(true);
-    } catch (err) {
-      setError('Network error. Please try again.');
+      // Use the signUp function from our AuthContext
+      await signUp(formData.email, formData.password, formData.fullName);
+      setSuccess(true);
+    } catch (err: any) {
+      setError(err.message || 'Failed to create account. The email may already be in use.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleOTPVerified = async () => {
-    try {
-      await signUp(formData.email, formData.password, formData.fullName);
-      navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Failed to create account');
-    }
-  };
+  // The marketing content on the left side remains the same
+  // ...
 
-  if (showOTP) {
+  // Render the success message or the form
+  if (success) {
     return (
-      <OTPVerification
-        email={formData.email}
-        onVerified={handleOTPVerified}
-        onBack={() => setShowOTP(false)}
-      />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+            <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg text-center">
+                <div className="flex justify-center mb-6">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <MailCheck className="w-8 h-8 text-green-600" />
+                    </div>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h2>
+                <p className="text-gray-600">
+                    We've sent a confirmation link to <span className="font-medium text-gray-900">{formData.email}</span>.
+                    Please click the link to complete your registration.
+                </p>
+            </div>
+        </div>
     );
   }
 
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Left side - Marketing content */}
+      {/* Left side - Marketing content (No changes needed here) */}
       <div className="hidden lg:flex lg:w-1/2 bg-white p-12 flex-col justify-center">
         <div className="max-w-md">
           {/* Logo */}
