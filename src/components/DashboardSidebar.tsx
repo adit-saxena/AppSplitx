@@ -1,3 +1,4 @@
+// src/components/DashboardSidebar.tsx
 import React from 'react';
 import { Home, BarChart3, Target, Settings, Plus, Globe } from 'lucide-react';
 
@@ -11,7 +12,7 @@ const navigation = [
 
 export function DashboardSidebar() {
   return (
-    <div className="w-64 bg-white border-r border-gray-200 h-full">
+    <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:z-30 lg:border-r lg:border-gray-200 lg:bg-white">
       <div className="p-6">
         <button className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors flex items-center justify-center">
           <Plus className="w-4 h-4 mr-2" />
