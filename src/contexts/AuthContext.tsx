@@ -1,3 +1,4 @@
+// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
@@ -59,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           full_name: fullName,
         },
       ]);
-    
+
     if (profileError) {
       console.error('Error creating profile:', profileError);
     }

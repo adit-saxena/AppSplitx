@@ -1,3 +1,4 @@
+// supabase/functions/verify-otp/index.ts
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
@@ -17,9 +18,9 @@ serve(async (req) => {
   if (!authHeader) {
     return new Response(
       JSON.stringify({ error: 'Missing authorization header' }),
-      { 
-        status: 401, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       }
     )
   }
@@ -30,9 +31,9 @@ serve(async (req) => {
     if (!email || !otp) {
       return new Response(
         JSON.stringify({ error: 'Email and OTP are required' }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
@@ -52,9 +53,9 @@ serve(async (req) => {
     if (fetchError || !verification) {
       return new Response(
         JSON.stringify({ error: 'No verification request found' }),
-        { 
-          status: 404, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 404,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
@@ -63,9 +64,9 @@ serve(async (req) => {
     if (verification.verified) {
       return new Response(
         JSON.stringify({ error: 'Email already verified' }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
@@ -74,9 +75,9 @@ serve(async (req) => {
     if (new Date(verification.expires_at) < new Date()) {
       return new Response(
         JSON.stringify({ error: 'OTP has expired' }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
@@ -85,9 +86,9 @@ serve(async (req) => {
     if (verification.attempts >= 5) {
       return new Response(
         JSON.stringify({ error: 'Too many failed attempts' }),
-        { 
-          status: 429, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 429,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
@@ -102,9 +103,9 @@ serve(async (req) => {
 
       return new Response(
         JSON.stringify({ error: 'Invalid OTP' }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
@@ -118,20 +119,20 @@ serve(async (req) => {
     if (updateError) {
       return new Response(
         JSON.stringify({ error: 'Failed to verify email' }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
     }
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Email verified successfully' 
+      JSON.stringify({
+        success: true,
+        message: 'Email verified successfully'
       }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       }
     )
 
@@ -139,9 +140,9 @@ serve(async (req) => {
     console.error('Error:', error)
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       }
     )
   }

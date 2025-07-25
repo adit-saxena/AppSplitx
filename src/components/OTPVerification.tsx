@@ -1,3 +1,4 @@
+// src/components/OTPVerification.tsx
 import React, { useState, useEffect } from 'react';
 import { Mail, ArrowLeft, RefreshCw } from 'lucide-react';
 
@@ -36,7 +37,7 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
 
   const handleOtpChange = (index: number, value: string) => {
     if (value.length > 1) return;
-    
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -70,6 +71,7 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY!,
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ email, otp: otpCode }),
@@ -98,6 +100,7 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY!,
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ email }),
