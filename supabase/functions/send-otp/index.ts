@@ -12,7 +12,6 @@ serve(async (req) => {
     return new Response('ok', { headers: corsHeaders })
   }
 
-  // Get authorization header
   const authHeader = req.headers.get('Authorization')
   if (!authHeader) {
     return new Response(
@@ -37,17 +36,25 @@ serve(async (req) => {
       )
     }
 
-    // Create Supabase client with service role key
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-    // Check if user already exists
-    const { data: existingUser, error: userCheckError } = await supabase.auth.admin.listUsers()
+    // Check if user already exists in auth.users
+    const { data: { users }, error: userCheckError } = await supabase.auth.admin.listUsers({ email });
     
-    const userExists = existingUser?.users?.some(user => user.email === email)
+    if (userCheckError) {
+      console.error('Error checking for existing user:', userCheckError)
+      return new Response(
+        JSON.stringify({ error: 'Failed to check for existing user' }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
+    }
     
-    if (userExists) {
+    if (users.length > 0) {
       return new Response(
         JSON.stringify({ 
           error: 'User already registered',
@@ -63,17 +70,21 @@ serve(async (req) => {
 
     // Generate 6-digit OTP
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString()
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString() // 10 minutes
 
-    // Store OTP in database
+    // Store or update OTP in database
     const { error: dbError } = await supabase
       .from('email_verifications')
-      .upsert({
-        email,
-        otp_code: otpCode,
-        expires_at: new Date(Date.now() + 10 * 60 * 1000).toISOString(), // 10 minutes
-        verified: false,
-        attempts: 0
-      })
+      .upsert(
+        {
+          email,
+          otp_code: otpCode,
+          expires_at: expiresAt,
+          verified: false,
+          attempts: 0
+        },
+        { onConflict: 'email' }
+      );
 
     if (dbError) {
       console.error('Database error:', dbError)
@@ -86,26 +97,12 @@ serve(async (req) => {
       )
     }
 
-    // In a real application, you would send the OTP via email service
-    // For demo purposes, we'll log it (remove this in production)
     console.log(`OTP for ${email}: ${otpCode}`)
-
-    // Simulate email sending (replace with actual email service)
-    const emailContent = `
-      <h2>SplitX AI - Email Verification</h2>
-      <p>Your verification code is: <strong>${otpCode}</strong></p>
-      <p>This code will expire in 10 minutes.</p>
-      <p>If you didn't request this code, please ignore this email.</p>
-    `
-
-    // Here you would integrate with your email service (SendGrid, AWS SES, etc.)
-    // For now, we'll just return success
     
     return new Response(
       JSON.stringify({ 
         success: true, 
         message: 'OTP sent successfully',
-        // Remove this in production - only for demo
         debug_otp: otpCode 
       }),
       { 

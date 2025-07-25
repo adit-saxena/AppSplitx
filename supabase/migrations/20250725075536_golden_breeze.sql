@@ -43,19 +43,19 @@ CREATE POLICY "Anyone can request email verification"
   TO anon
   WITH CHECK (true);
 
--- Allow anyone to read their own verification record
-CREATE POLICY "Users can read own verification"
+-- Allow unauthenticated users to read their own verification record
+CREATE POLICY "Anon users can read own verification"
   ON email_verifications
   FOR SELECT
   TO anon
-  USING (true);
+  USING (email = request.jwt() ->> 'email');
 
--- Allow anyone to update their own verification record
-CREATE POLICY "Users can update own verification"
+-- Allow unauthenticated users to update their own verification record
+CREATE POLICY "Anon users can update own verification"
   ON email_verifications
   FOR UPDATE
   TO anon
-  USING (true);
+  USING (email = request.jwt() ->> 'email');
 
 -- Function to cleanup expired OTPs
 CREATE OR REPLACE FUNCTION cleanup_expired_otps()

@@ -39,18 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string) => {
-    // Check if email is verified first
-    const { data: verification } = await supabase
-      .from('email_verifications')
-      .select('verified')
-      .eq('email', email)
-      .single();
-
-    if (!verification?.verified) {
-      throw new Error('Please verify your email first');
-    }
-
-    const { error } = await supabase.auth.signUp({
+    const { data: { user: newUser }, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -66,7 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .from('profiles')
       .insert([
         {
-          id: (await supabase.auth.getUser()).data.user?.id,
+          id: newUser?.id,
           full_name: fullName,
         },
       ]);
@@ -74,12 +63,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (profileError) {
       console.error('Error creating profile:', profileError);
     }
-
-    // Clean up verification record
-    await supabase
-      .from('email_verifications')
-      .delete()
-      .eq('email', email);
   };
 
   const signIn = async (email: string, password: string) => {
