@@ -71,12 +71,12 @@ export function SignUp() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Left side - Marketing content (No changes needed here) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-white p-12 flex-col justify-center">
+      <div className="hidden lg:flex lg:w-1/2 bg-white pt-12 pr-8 pb-12 pl-[10rem] flex-col justify-center">
         <div className="max-w-md">
           {/* Logo */}
           <div className="flex items-center mb-12">
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
+              <img src="/logo.png" alt="SplitX AI" className="w-8 h-8" />
             </div>
             <span className="ml-3 text-xl font-bold text-gray-900">SplitX AI</span>
           </div>
@@ -133,7 +133,7 @@ export function SignUp() {
       </div>
 
       {/* Right side - Sign up form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full lg:w-1/2 flex items-center justify-center pt-12 pl-8 pb-12 pr-[10rem]">
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Get started for free</h2>

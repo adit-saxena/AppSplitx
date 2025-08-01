@@ -20,7 +20,7 @@ export function DashboardHeader() {
         {/* Logo */}
         <div className="flex items-center">
           <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold">S</span>
+            <img src="/logo.png" alt="SplitX AI" className="w-8 h-8" />
           </div>
           <h1 className="ml-3 text-xl font-bold text-gray-900">SplitX AI</h1>
         </div>

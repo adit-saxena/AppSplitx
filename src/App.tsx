@@ -20,7 +20,7 @@ function AppContent() {
       <Route path="/" element={<Layout />}>
         <Route 
           index 
-          element={user ? <Navigate to="/dashboard" replace /> : <Navigate to="/signup" replace />} 
+          element={user ? <Navigate to="/dashboard" replace /> : <Navigate to="/signin" replace />}
         />
         <Route path="/signup" element={user ? <Navigate to="/dashboard" replace /> : <SignUp />} />
         <Route path="/signin" element={user ? <Navigate to="/dashboard" replace /> : <SignIn />} />
