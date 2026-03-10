@@ -7,6 +7,8 @@ export interface Project {
   name: string;
   domain: string;
   description?: string;
+  goal_type?: 'button_click' | 'form_submission' | 'page_visit';
+  goal_value?: string;
   created_at: string;
   updated_at: string;
 }
@@ -44,7 +46,7 @@ export function useProjects() {
     try {
       const { data, error } = await supabase
         .from('projects')
-        .insert([projectData])
+        .insert([{ ...projectData, user_id: user?.id }])
         .select()
         .single();
 

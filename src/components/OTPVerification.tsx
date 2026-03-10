@@ -122,13 +122,14 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="max-w-md w-full">
-        <div className="bg-white rounded-xl shadow-lg p-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 relative overflow-hidden">
+
+      <div className="max-w-md w-full relative z-10">
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
           {/* Back button */}
           <button
             onClick={onBack}
-            className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+            className="flex items-center text-gray-500 hover:text-black mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
@@ -136,16 +137,16 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
 
           {/* Icon */}
           <div className="flex items-center justify-center mb-8">
-            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center">
-              <Mail className="w-8 h-8 text-indigo-600" />
+            <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center">
+              <Mail className="w-8 h-8 text-black" />
             </div>
           </div>
 
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Verify your email</h2>
-            <p className="text-gray-600">
+            <p className="text-gray-500">
               We've sent a 6-digit code to <br />
-              <span className="font-medium text-gray-900">{email}</span>
+              <span className="font-medium text-black">{email}</span>
             </p>
           </div>
 
@@ -165,7 +166,7 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                className="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                className="w-12 h-12 text-center text-xl font-bold border border-gray-300 bg-white text-gray-900 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-colors"
                 maxLength={1}
               />
             ))}
@@ -174,7 +175,7 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
           {/* Timer */}
           <div className="text-center mb-6">
             <p className="text-sm text-gray-500">
-              Code expires in <span className="font-medium text-gray-900">{formatTime(timeLeft)}</span>
+              Code expires in <span className="font-medium text-black">{formatTime(timeLeft)}</span>
             </p>
           </div>
 
@@ -182,18 +183,18 @@ export function OTPVerification({ email, onVerified, onBack }: OTPVerificationPr
           <button
             onClick={handleVerify}
             disabled={loading || otp.join('').length !== 6}
-            className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+            className="w-full bg-black text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
           >
             {loading ? 'Verifying...' : 'Verify Email'}
           </button>
 
           {/* Resend */}
           <div className="text-center">
-            <p className="text-gray-600 text-sm mb-2">Didn't receive the code?</p>
+            <p className="text-gray-500 text-sm mb-2">Didn't receive the code?</p>
             <button
               onClick={handleResend}
               disabled={resendLoading || timeLeft > 540} // Allow resend after 1 minute
-              className="text-indigo-600 hover:text-indigo-700 font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto"
+              className="text-black hover:text-gray-700 font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto"
             >
               {resendLoading ? (
                 <>

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { TrendingUp, Target, Users, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { DashboardStats as DashboardStatsType } from '../hooks/useDashboardStats';
 
@@ -61,14 +61,14 @@ export function DashboardStats({ stats, loading }: DashboardStatsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {statsData.map((stat) => (
-        <div key={stat.name} className="bg-white rounded-xl p-6 border border-gray-200">
+        <div key={stat.name} className="group bg-white rounded-lg p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">{stat.name}</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+              <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700 transition-colors">{stat.name}</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1 tracking-tight">{stat.value}</p>
             </div>
-            <div className="p-3 bg-indigo-50 rounded-lg">
-              <stat.icon className="w-6 h-6 text-indigo-600" />
+            <div className="p-3 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-all duration-200">
+              <stat.icon className="w-5 h-5 text-black transition-colors" />
             </div>
           </div>
           <div className="flex items-center mt-4">
@@ -78,13 +78,12 @@ export function DashboardStats({ stats, loading }: DashboardStatsProps) {
               <ArrowDownRight className="w-4 h-4 text-red-500 mr-1" />
             )}
             <span
-              className={`text-sm font-medium ${
-                stat.changeType === 'increase' ? 'text-green-600' : 'text-red-600'
-              }`}
+              className={`text-sm font-medium ${stat.changeType === 'increase' ? 'text-green-600' : 'text-red-600'
+                }`}
             >
               {stat.change}
             </span>
-            <span className="text-sm text-gray-500 ml-1">vs last month</span>
+            <span className="text-sm text-zinc-500 ml-1">vs last month</span>
           </div>
         </div>
       ))}

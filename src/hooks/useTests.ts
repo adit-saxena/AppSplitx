@@ -9,6 +9,11 @@ export interface Test {
   description?: string;
   status: 'draft' | 'running' | 'paused' | 'completed';
   traffic_allocation: number;
+  page_url?: string;
+  element_selector?: string;
+  fallback_selectors?: string[];
+  selector_stability?: 'high' | 'medium' | 'low';
+  optimization_mode?: 'automated' | 'manual';
   start_date?: string;
   end_date?: string;
   created_at: string;
@@ -114,7 +119,7 @@ export function useTests() {
         .eq('test_id', testId);
 
       const conversion_rate = visitors ? (conversions || 0) / visitors * 100 : 0;
-      
+
       // Calculate improvement (simplified - would need more complex logic for real A/B testing)
       const improvement = Math.random() * 25; // Mock improvement for demo
 

@@ -50,32 +50,35 @@ export function SignUp() {
   // Render the success message or the form
   if (success) {
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
-            <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg text-center">
-                <div className="flex justify-center mb-6">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                        <MailCheck className="w-8 h-8 text-green-600" />
-                    </div>
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h2>
-                <p className="text-gray-600">
-                    We've sent a confirmation link to <span className="font-medium text-gray-900">{formData.email}</span>.
-                    Please click the link to complete your registration.
-                </p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+        <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg text-center border border-gray-200">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
+              <MailCheck className="w-8 h-8 text-green-600" />
             </div>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h2>
+          <p className="text-gray-600">
+            We've sent a confirmation link to <span className="font-medium text-gray-900">{formData.email}</span>.
+            Please click the link to complete your registration.
+          </p>
         </div>
+      </div>
     );
   }
 
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex relative overflow-hidden">
+      {/* Background Ambience Removed for Uber-like style */}
+
       {/* Left side - Marketing content (No changes needed here) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-white pt-12 pr-8 pb-12 pl-[10rem] flex-col justify-center">
+      {/* Left side - Marketing content (No changes needed here) */}
+      <div className="hidden lg:flex lg:w-1/2 bg-white border-r border-gray-200 pt-12 pr-8 pb-12 pl-[10rem] flex-col justify-center relative z-10">
         <div className="max-w-md">
           {/* Logo */}
           <div className="flex items-center mb-12">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
               <img src="/logo.png" alt="SplitX AI" className="w-8 h-8" />
             </div>
             <span className="ml-3 text-xl font-bold text-gray-900">SplitX AI</span>
@@ -87,45 +90,45 @@ export function SignUp() {
           </h1>
 
           {/* Description */}
-          <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+          <p className="text-gray-500 mb-8 text-lg leading-relaxed">
             Stop guessing what works. SplitX AI continuously tests changes to your website, finds what converts best, and implements it for you.
           </p>
 
           {/* Features */}
           <div className="space-y-4">
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                <svg className="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-6 h-6 bg-blue-500/10 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">AI-Powered A/B Testing:</h3>
-                <p className="text-gray-600">Let our AI generate, test, and implement high-converting website components.</p>
+                <p className="text-gray-500">Let our AI generate, test, and implement high-converting website components.</p>
               </div>
             </div>
 
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                <svg className="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-6 h-6 bg-blue-500/10 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">No Manual Work:</h3>
-                <p className="text-gray-600">Save time and resources. We handle the entire optimization process from start to finish.</p>
+                <p className="text-gray-500">Save time and resources. We handle the entire optimization process from start to finish.</p>
               </div>
             </div>
 
             <div className="flex items-start">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                <svg className="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-6 h-6 bg-blue-500/10 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">Continuous Improvement:</h3>
-                <p className="text-gray-600">Achieve better performance and higher conversion rates with data-driven insights.</p>
+                <p className="text-gray-500">Achieve better performance and higher conversion rates with data-driven insights.</p>
               </div>
             </div>
           </div>
@@ -133,11 +136,11 @@ export function SignUp() {
       </div>
 
       {/* Right side - Sign up form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center pt-12 pl-8 pb-12 pr-[10rem]">
+      <div className="w-full lg:w-1/2 flex items-center justify-center pt-12 pl-8 pb-12 pr-[10rem] relative z-10">
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Get started for free</h2>
-            <p className="text-gray-600">Create your account and start optimizing today.</p>
+            <p className="text-gray-500">Create your account and start optimizing today.</p>
           </div>
 
           {error && (
@@ -158,7 +161,7 @@ export function SignUp() {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-black focus:border-transparent transition-colors placeholder-gray-400"
                 required
               />
             </div>
@@ -174,7 +177,7 @@ export function SignUp() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@company.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-black focus:border-transparent transition-colors placeholder-gray-400"
                 required
               />
             </div>
@@ -190,7 +193,7 @@ export function SignUp() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-black focus:border-transparent transition-colors placeholder-gray-400"
                 required
               />
             </div>
@@ -198,22 +201,22 @@ export function SignUp() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full bg-black text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               {loading ? 'Creating Account...' : 'Create Account'}
               {!loading && <ArrowRight className="w-4 h-4 ml-2" />}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
+          <div className="mt-6 text-center text-sm text-zinc-500">
             By signing up, you agree to our{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-700">Terms of Service</a>.
+            <a href="#" className="text-blue-500 hover:text-blue-400">Terms of Service</a>.
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-500">
               Already have an account?{' '}
-              <Link to="/signin" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link to="/signin" className="text-black hover:text-gray-700 font-medium">
                 Sign In
               </Link>
             </p>
