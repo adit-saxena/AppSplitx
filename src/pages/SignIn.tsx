@@ -1,6 +1,6 @@
 // src/pages/SignIn.tsx
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -181,14 +181,6 @@ export function SignIn() {
             </button>
           </form>
 
-          <div className="mt-8 text-center">
-            <p className="text-gray-500">
-              Don't have an account?{' '}
-              <Link to="/signup" className="text-black hover:text-gray-700 font-medium">
-                Sign Up
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
